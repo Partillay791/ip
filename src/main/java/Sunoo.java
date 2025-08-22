@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sunoo {
     private static final String HORIZONTAL_LINE = "_".repeat(40);
+    private static final ArrayList<String> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = " ____  _   _ _   _  ____  ____  \n"
@@ -21,22 +23,34 @@ public class Sunoo {
             if (userInput.equals("bye")) {
                 exit();
                 break;
+            } else if (userInput.equals("list")) {
+                listTasks();
+            } else {
+                addTask(userInput);
             }
-            echo(userInput);
         }
 
         sc.close();
     }
 
-    public static void exit() {
+    private static void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye bye, ENGENE!");
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void echo(String userInput) {
+    private static void addTask(String userInput) {
+        taskList.add(userInput);
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(userInput);
+        System.out.println("added: " + userInput);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void listTasks() {
+        System.out.println(HORIZONTAL_LINE);
+        for (int i = 1; i <= taskList.size(); i++) {
+            System.out.println(i + ". " + taskList.get(i - 1));
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 }
