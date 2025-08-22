@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Sunoo {
     private static final String HORIZONTAL_LINE = "_".repeat(40);
 
@@ -8,10 +10,33 @@ public class Sunoo {
                 + " ___) | |_| | |\\  || |_| | |_| |\n"
                 + "|____/ \\___/|_| \\_||____/|____/ \n";
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello, this is Sunoo!\n" + logo);
-        System.out.println("I'm glad to help you!");
+        System.out.println("Hello, this is Sunoo from ENHYPEN!\n" + logo);
+        System.out.println("I'm glad to help you, let's talk!");
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Bye bye!");
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            String userInput = sc.nextLine();
+            if (userInput.equals("bye")) {
+                exit();
+                break;
+            }
+            echo(userInput);
+        }
+
+        sc.close();
+    }
+
+    public static void exit() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Bye bye, ENGENE!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void echo(String userInput) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(userInput);
         System.out.println(HORIZONTAL_LINE);
     }
 }
