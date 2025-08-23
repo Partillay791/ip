@@ -31,8 +31,12 @@ public class Sunoo {
             } else if (userInput.startsWith("unmark ")) {
                 int taskIndex = Integer.parseInt(userInput.substring("unmark ".length()));
                 unmarkTask(taskIndex);
-            } else {
-                addTask(userInput);
+            } else if (userInput.startsWith("todo ")) {
+                addTask(userInput, 1);
+            } else if (userInput.startsWith("deadline ")) {
+                addTask(userInput, 2);
+            } else if (userInput.startsWith("event ")) {
+                addTask(userInput, 3);
             }
         }
 
@@ -45,10 +49,26 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addTask(String userInput) {
-        taskList.add(new Task(userInput));
+    private static void addTask(String userInput, int taskType) {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("added: " + userInput);
+        if (taskType == 1) { // ToDo
+            taskList.add(new ToDo(userInput.substring(5)));
+        } else if (taskType == 2) { // Deadline
+            String[] splitResult = userInput.split(" /by ");
+            String taskDescription = splitResult[0];
+            String deadline = splitResult[1];
+            taskList.add(new Deadline(taskDescription, deadline));
+        } else if (taskType == 3) { // Event
+            String[] fromSplit = userInput.split(" /from ");
+            String[] toSplit = fromSplit[1].split(" /to ");
+            String taskDescription = fromSplit[0];
+            String startTime = toSplit[0];
+            String endTime = toSplit[1];
+            taskList.add(new Event(taskDescription, startTime, endTime));
+        }
+        System.out.println("Got it! Sunoo has added this task for you: ");
+        System.out.println(taskList.get(taskList.size() - 1));
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list, hwaiting!");
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -56,7 +76,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice job, ENGENE! I've marked this task as done:");
         taskList.get(taskIndex - 1).markAsDone();
-        System.out.println(taskList.get(taskIndex - 1).getFullDescription());
+        System.out.println(taskList.get(taskIndex - 1));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -64,7 +84,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Ok, ENGENE! I've marked this task as not done yet:");
         taskList.get(taskIndex - 1).markAsNotDone();
-        System.out.println(taskList.get(taskIndex - 1).getFullDescription());
+        System.out.println(taskList.get(taskIndex - 1));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -72,7 +92,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("ENGENE, here are the tasks recorded by ddeonu:");
         for (int i = 1; i <= taskList.size(); i++) {
-            System.out.println(i + ". " + taskList.get(i - 1).getFullDescription());
+            System.out.println(i + ". " + taskList.get(i - 1));
         }
         System.out.println(HORIZONTAL_LINE);
     }
