@@ -48,9 +48,20 @@ public class Sunoo {
                     try {
                         taskIndex = Integer.parseInt(userInput.substring("unmark ".length()));
                     } catch (NumberFormatException e) {
-                        throw new SunooException("ENGENE, I need a number to mark!");
+                        throw new SunooException("ENGENE, I need a number to unmark!");
                     }
                     unmarkTask(taskIndex);
+                } else if (userInput.startsWith("delete")) {
+                    if (userInput.equals("delete")) {
+                        throw new SunooException("ENGENE, ddeonu does not know what to delete!");
+                    }
+                    int taskIndex;
+                    try {
+                        taskIndex = Integer.parseInt(userInput.substring("delete ".length()));
+                    } catch (NumberFormatException e) {
+                        throw new SunooException("ENGENE, I need a number to delete!");
+                    }
+                    deleteTask(taskIndex);
                 } else if (userInput.startsWith("todo")) {
                     addTask(userInput, 1);
                 } else if (userInput.startsWith("deadline")) {
@@ -153,6 +164,21 @@ public class Sunoo {
         System.out.println("Ok, ENGENE! I've marked this task as not done yet:");
         taskList.get(taskIndex - 1).markAsNotDone();
         System.out.println(taskList.get(taskIndex - 1));
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void deleteTask(int taskIndex) {
+        if (taskIndex <= 0) {
+            throw new SunooException("Sorry ENGENE, that's not a valid task index!");
+        }
+        if (taskIndex > taskList.size()) {
+            throw new SunooException("Sorry ENGENE, you don't have that many tasks!");
+        }
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Ok, ENGENE! I've removed this task:");
+        System.out.println(taskList.get(taskIndex - 1));
+        taskList.remove(taskIndex - 1);
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list left, hwaiting!");
         System.out.println(HORIZONTAL_LINE);
     }
 
