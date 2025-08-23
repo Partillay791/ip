@@ -9,31 +9,31 @@ Hello, this is Sunoo from ENHYPEN!
 I'm glad to help you, let's talk!
 __________________________________________________
 __________________________________________________
-Got it! Sunoo has added this task for you:
+Got it! Ddeonu has added this task for you:
 [T][ ] exam paper
 Now you have 1 task(s) in the list, hwaiting!
 __________________________________________________
 __________________________________________________
-Got it! Sunoo has added this task for you:
-[E][ ] event meeting (from: 2pm to: 6pm)
+Got it! Ddeonu has added this task for you:
+[E][ ] meeting (from: 2pm to: 6pm)
 Now you have 2 task(s) in the list, hwaiting!
 __________________________________________________
 __________________________________________________
-Got it! Sunoo has added this task for you:
+Got it! Ddeonu has added this task for you:
 [T][ ] fishing
 Now you have 3 task(s) in the list, hwaiting!
 __________________________________________________
 __________________________________________________
-Got it! Sunoo has added this task for you:
-[D][ ] deadline dating sunghoon (by: 12am)
+Got it! Ddeonu has added this task for you:
+[D][ ] dating sunghoon (by: 12am)
 Now you have 4 task(s) in the list, hwaiting!
 __________________________________________________
 __________________________________________________
 ENGENE, here are the tasks recorded by ddeonu:
 1. [T][ ] exam paper
-2. [E][ ] event meeting (from: 2pm to: 6pm)
+2. [E][ ] meeting (from: 2pm to: 6pm)
 3. [T][ ] fishing
-4. [D][ ] deadline dating sunghoon (by: 12am)
+4. [D][ ] dating sunghoon (by: 12am)
 __________________________________________________
 __________________________________________________
 Nice job, ENGENE! I've marked this task as done:
@@ -42,17 +42,17 @@ __________________________________________________
 __________________________________________________
 ENGENE, here are the tasks recorded by ddeonu:
 1. [T][X] exam paper
-2. [E][ ] event meeting (from: 2pm to: 6pm)
+2. [E][ ] meeting (from: 2pm to: 6pm)
 3. [T][ ] fishing
-4. [D][ ] deadline dating sunghoon (by: 12am)
+4. [D][ ] dating sunghoon (by: 12am)
 __________________________________________________
 __________________________________________________
 Nice job, ENGENE! I've marked this task as done:
-[E][X] event meeting (from: 2pm to: 6pm)
+[E][X] meeting (from: 2pm to: 6pm)
 __________________________________________________
 __________________________________________________
 Ok, ENGENE! I've marked this task as not done yet:
-[E][ ] event meeting (from: 2pm to: 6pm)
+[E][ ] meeting (from: 2pm to: 6pm)
 __________________________________________________
 __________________________________________________
 Bye bye, ENGENE!
