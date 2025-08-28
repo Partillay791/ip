@@ -1,10 +1,10 @@
 public class Task {
-    protected final String description;
     protected boolean isDone;
+    protected final String description;
 
-    public Task(String description) {
+    public Task(boolean isDone, String description) {
+        this.isDone = isDone;
         this.description = description;
-        this.isDone = false;
     }
 
     public String getStatusIcon() {
@@ -14,6 +14,10 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public String getTxtRepresentation() {
+        return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     public void markAsDone() {

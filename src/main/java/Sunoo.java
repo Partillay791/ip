@@ -1,11 +1,38 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sunoo {
     private static final String HORIZONTAL_LINE = "_".repeat(120);
     private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static final String FILE_PATH = "data/sunoo.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        ensureFileExists();
+        Scanner s = new Scanner(new File(FILE_PATH));
+        while (s.hasNextLine()) {
+            String taskText = s.nextLine();
+            String[] taskParts = taskText.split(" \\| ");
+            boolean isDone;
+            switch (taskParts[0]) {
+            case "T":
+                isDone = taskParts[1].equals("1");
+                taskList.add(new ToDo(isDone, taskParts[2]));
+                break;
+            case "D":
+                isDone = taskParts[1].equals("1");
+                taskList.add(new Deadline(isDone, taskParts[2], taskParts[3]));
+                break;
+            case "E":
+                isDone = taskParts[1].equals("1");
+                taskList.add(new Event(isDone, taskParts[2], taskParts[3], taskParts[4]));
+            }
+        }
+
         String logo = """
                  ____  _   _ _   _  ____  ____
                 / ___|| | | | \\ | ||  _ \\|  _ \\
@@ -92,22 +119,23 @@ public class Sunoo {
             } catch (SunooException e) {
                 System.out.println(HORIZONTAL_LINE + "\n" + e.getMessage() + "\n" + HORIZONTAL_LINE);
             }
+            updateTaskListInTxt();
         }
         sc.close();
     }
 
-    private static void exit() {
+    private static void exit () {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye bye, ENGENE!");
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addTask(String userInput, int taskType) {
+    private static void addTask (String userInput,int taskType){
         if (taskType == 1) { // ToDo
             if (userInput.equals("todo")) {
                 throw new SunooException("Sorry ENGENE, you don't have a todo description!");
             }
-            taskList.add(new ToDo(userInput.substring(5)));
+            taskList.add(new ToDo(false, userInput.substring(5)));
         } else if (taskType == 2) { // Deadline
             if (userInput.equals("deadline")) {
                 throw new SunooException("Sorry ENGENE, your deadline task is empty!");
@@ -122,7 +150,7 @@ public class Sunoo {
             }
             String taskDescription = splitResult[0];
             String deadline = splitResult[1];
-            taskList.add(new Deadline(taskDescription, deadline));
+            taskList.add(new Deadline(false, taskDescription, deadline));
         } else if (taskType == 3) { // Event
             if (userInput.equals("event")) {
                 throw new SunooException("Sorry ENGENE, your event task is empty!");
@@ -147,7 +175,7 @@ public class Sunoo {
             String taskDescription = fromSplit[0];
             String startTime = toSplit[0];
             String endTime = toSplit[1];
-            taskList.add(new Event(taskDescription, startTime, endTime));
+            taskList.add(new Event(false, taskDescription, startTime, endTime));
         }
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it! Ddeonu has added this task for you:");
@@ -156,7 +184,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void markTask(int taskIndex) {
+    private static void markTask ( int taskIndex){
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -170,7 +198,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void unmarkTask(int taskIndex) {
+    private static void unmarkTask ( int taskIndex){
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -184,7 +212,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void deleteTask(int taskIndex) {
+    private static void deleteTask ( int taskIndex){
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -199,12 +227,27 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void listTasks() {
+    private static void listTasks () {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("ENGENE, here are the tasks recorded by ddeonu:");
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.println(i + ". " + taskList.get(i - 1));
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void ensureFileExists() throws IOException {
+        File file = new File(Sunoo.FILE_PATH);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+    }
+
+    private static void updateTaskListInTxt() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (Task task : taskList) {
+            fw.write(task.getTxtRepresentation());
+            fw.write("\n");
+        }
+        fw.close();
     }
 }
