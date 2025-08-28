@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sunoo {
-    private static final String HORIZONTAL_LINE = "_".repeat(50);
+    private static final String HORIZONTAL_LINE = "_".repeat(120);
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -33,6 +33,9 @@ public class Sunoo {
                     if (userInput.equals("mark")) {
                         throw new SunooException("ENGENE, ddeonu does not know what to mark!");
                     }
+                    if (!userInput.startsWith("mark ")) {
+                        throw new SunooException("ENGENE, leave a space after \"mark\"!");
+                    }
                     int taskIndex;
                     try {
                         taskIndex = Integer.parseInt(userInput.substring("mark ".length()));
@@ -43,6 +46,9 @@ public class Sunoo {
                 } else if (userInput.startsWith("unmark")) {
                     if (userInput.equals("unmark")) {
                         throw new SunooException("ENGENE, ddeonu does not know what to unmark!");
+                    }
+                    if (!userInput.startsWith("unmark ")) {
+                        throw new SunooException("ENGENE, leave a space after \"unmark\"!");
                     }
                     int taskIndex;
                     try {
@@ -55,6 +61,9 @@ public class Sunoo {
                     if (userInput.equals("delete")) {
                         throw new SunooException("ENGENE, ddeonu does not know what to delete!");
                     }
+                    if (!userInput.startsWith("delete ")) {
+                        throw new SunooException("ENGENE, leave a space after \"delete\"!");
+                    }
                     int taskIndex;
                     try {
                         taskIndex = Integer.parseInt(userInput.substring("delete ".length()));
@@ -63,10 +72,19 @@ public class Sunoo {
                     }
                     deleteTask(taskIndex);
                 } else if (userInput.startsWith("todo")) {
+                    if (!userInput.startsWith("todo ")) {
+                        throw new SunooException("ENGENE, leave a space after \"todo\"!");
+                    }
                     addTask(userInput, 1);
                 } else if (userInput.startsWith("deadline")) {
+                    if (!userInput.startsWith("deadline ")) {
+                        throw new SunooException("ENGENE, leave a space after \"deadline\"!");
+                    }
                     addTask(userInput, 2);
                 } else if (userInput.startsWith("event")) {
+                    if (!userInput.startsWith("event ")) {
+                        throw new SunooException("ENGENE, leave a space after \"event\"!");
+                    }
                     addTask(userInput, 3);
                 } else {
                     throw new SunooException("Sorry! Ddeonu doesn't know what you mean ToT");
@@ -85,7 +103,6 @@ public class Sunoo {
     }
 
     private static void addTask(String userInput, int taskType) {
-        userInput = userInput.trim();
         if (taskType == 1) { // ToDo
             if (userInput.equals("todo")) {
                 throw new SunooException("Sorry ENGENE, you don't have a todo description!");
