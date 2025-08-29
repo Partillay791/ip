@@ -130,13 +130,13 @@ public class Sunoo {
         sc.close();
     }
 
-    private static void exit () {
+    private static void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye bye, ENGENE!");
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addTask (String userInput,int taskType){
+    private static void addTask(String userInput, int taskType) {
         if (taskType == 1) { // ToDo
             if (userInput.equals("todo")) {
                 throw new SunooException("Sorry ENGENE, you don't have a todo description!");
@@ -190,7 +190,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void markTask ( int taskIndex){
+    private static void markTask(int taskIndex) {
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -204,7 +204,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void unmarkTask ( int taskIndex){
+    private static void unmarkTask(int taskIndex) {
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -218,7 +218,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void deleteTask ( int taskIndex){
+    private static void deleteTask(int taskIndex) {
         if (taskIndex <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
@@ -233,7 +233,7 @@ public class Sunoo {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void listTasks () {
+    private static void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("ENGENE, here are the tasks recorded by ddeonu:");
         for (int i = 1; i <= taskList.size(); i++) {
