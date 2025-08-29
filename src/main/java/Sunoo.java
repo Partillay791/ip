@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,11 +28,14 @@ public class Sunoo {
                 break;
             case "D":
                 isDone = taskParts[1].equals("1");
-                taskList.add(new Deadline(isDone, taskParts[2], taskParts[3]));
+                taskList.add(new Deadline(isDone, taskParts[2],
+                        LocalDateTime.parse(taskParts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
                 break;
             case "E":
                 isDone = taskParts[1].equals("1");
-                taskList.add(new Event(isDone, taskParts[2], taskParts[3], taskParts[4]));
+                taskList.add(new Event(isDone, taskParts[2],
+                        LocalDateTime.parse(taskParts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                        LocalDateTime.parse(taskParts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
             }
         }
 
@@ -149,7 +155,7 @@ public class Sunoo {
                         2. Your description and deadline cannot be empty!""");
             }
             String taskDescription = splitResult[0];
-            String deadline = splitResult[1];
+            LocalDateTime deadline = localDateTimeParser(splitResult[1]);
             taskList.add(new Deadline(false, taskDescription, deadline));
         } else if (taskType == 3) { // Event
             if (userInput.equals("event")) {
@@ -173,8 +179,8 @@ public class Sunoo {
                         3. Your description, event start time and event end time cannot be empty!""");
             }
             String taskDescription = fromSplit[0];
-            String startTime = toSplit[0];
-            String endTime = toSplit[1];
+            LocalDateTime startTime = localDateTimeParser(toSplit[0]);
+            LocalDateTime endTime = localDateTimeParser(toSplit[1]);
             taskList.add(new Event(false, taskDescription, startTime, endTime));
         }
         System.out.println(HORIZONTAL_LINE);
@@ -249,5 +255,10 @@ public class Sunoo {
             fw.write("\n");
         }
         fw.close();
+    }
+
+    private static LocalDateTime localDateTimeParser(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(input, formatter);
     }
 }
