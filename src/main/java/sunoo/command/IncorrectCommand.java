@@ -1,7 +1,13 @@
+package sunoo.command;
+
+import sunoo.task.TaskList;
+
+import sunoo.ui.Ui;
+
 public class IncorrectCommand extends Command {
     private final String incorrectMessage;
 
-    IncorrectCommand(String incorrectMessage) {
+    public IncorrectCommand(String incorrectMessage) {
         this.incorrectMessage = incorrectMessage;
     }
 

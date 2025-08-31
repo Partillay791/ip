@@ -1,3 +1,5 @@
+package sunoo.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -21,7 +23,7 @@ public class Ui {
 
     public static void greetUser() {
         showLine();
-        System.out.println("Hello, this is Sunoo from ENHYPEN!\n" + LOGO);
+        System.out.println("Hello, this is sunoo.ui.Sunoo from ENHYPEN!\n" + LOGO);
         System.out.println("I'm glad to help you, let's talk!");
         showLine();
     }

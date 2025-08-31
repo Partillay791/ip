@@ -1,3 +1,5 @@
+package sunoo.task;
+
 public class Task {
     protected boolean isDone;
     protected final String description;

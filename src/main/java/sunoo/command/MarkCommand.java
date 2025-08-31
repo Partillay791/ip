@@ -1,7 +1,15 @@
+package sunoo.command;
+
+import sunoo.exception.SunooException;
+
+import sunoo.task.TaskList;
+
+import sunoo.ui.Ui;
+
 public class MarkCommand extends Command {
     private final int indexToMark;
 
-    MarkCommand(int indexToMark) {
+    public MarkCommand(int indexToMark) {
         this.indexToMark = indexToMark;
     }
 
