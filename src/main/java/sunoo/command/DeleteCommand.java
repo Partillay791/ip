@@ -1,7 +1,15 @@
+package sunoo.command;
+
+import sunoo.exception.SunooException;
+
+import sunoo.task.TaskList;
+
+import sunoo.ui.Ui;
+
 public class DeleteCommand extends Command {
     private final int indexToDelete;
 
-    DeleteCommand(int indexToDelete) {
+    public DeleteCommand(int indexToDelete) {
         this.indexToDelete = indexToDelete;
     }
 

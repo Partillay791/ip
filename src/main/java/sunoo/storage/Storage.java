@@ -1,3 +1,5 @@
+package sunoo.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Scanner;
+
+import sunoo.task.Deadline;
+import sunoo.task.Event;
+import sunoo.task.Task;
+import sunoo.task.TaskList;
+import sunoo.task.ToDo;
 
 public class Storage {
     private static final String FILE_PATH = "data/sunoo.txt";

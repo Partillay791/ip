@@ -1,7 +1,15 @@
+package sunoo.command;
+
+import sunoo.exception.SunooException;
+
+import sunoo.task.TaskList;
+
+import sunoo.ui.Ui;
+
 public class UnmarkCommand extends Command {
     private final int indexToUnmark;
 
-    UnmarkCommand(int indexToUnmark) {
+    public UnmarkCommand(int indexToUnmark) {
         this.indexToUnmark = indexToUnmark;
     }
 

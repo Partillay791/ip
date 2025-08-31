@@ -1,7 +1,14 @@
+package sunoo.command;
+
+import sunoo.task.Task;
+import sunoo.task.TaskList;
+
+import sunoo.ui.Ui;
+
 public class AddCommand extends Command {
     private final Task taskToAdd;
 
-    AddCommand(Task taskToAdd) {
+    public AddCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }
 
