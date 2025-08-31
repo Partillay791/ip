@@ -10,7 +10,8 @@ import java.util.Scanner;
 public class Storage {
     private static final String FILE_PATH = "data/sunoo.txt";
 
-    public static void loadTasks() throws IOException {
+    public static TaskList loadTasks() throws IOException {
+        TaskList tasks = new TaskList();
         ensureFileExists();
         Scanner s = new Scanner(new File(FILE_PATH));
         while (s.hasNextLine()) {
@@ -20,25 +21,26 @@ public class Storage {
             switch (taskParts[0]) {
             case "T":
                 isDone = taskParts[1].equals("1");
-                TaskList.addTask(new ToDo(isDone, taskParts[2]));
+                tasks.addTask(new ToDo(isDone, taskParts[2]));
                 break;
             case "D":
                 isDone = taskParts[1].equals("1");
-                TaskList.addTask(new Deadline(isDone, taskParts[2],
+                tasks.addTask(new Deadline(isDone, taskParts[2],
                         LocalDateTime.parse(taskParts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
                 break;
             case "E":
                 isDone = taskParts[1].equals("1");
-                TaskList.addTask(new Event(isDone, taskParts[2],
+                tasks.addTask(new Event(isDone, taskParts[2],
                         LocalDateTime.parse(taskParts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         LocalDateTime.parse(taskParts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
             }
         }
+        return tasks;
     }
 
-    public static void updateTaskListInTxt() throws IOException {
+    public static void updateTaskListInTxt(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : TaskList.getTasks()) {
+        for (Task task : tasks.getTasks()) {
             fw.write(task.getTxtRepresentation());
             fw.write("\n");
         }
