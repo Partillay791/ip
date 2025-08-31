@@ -1,0 +1,97 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Parser {
+    public static Command parse(String userInput) {
+        String[] parts = userInput.split(" ", 2);
+        String command = parts[0];
+        int taskIndex;
+        switch (command) {
+        case "bye":
+            return new ByeCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            try {
+                taskIndex = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                throw new SunooException("ENGENE, I need a number to mark!");
+            }
+            return new MarkCommand(taskIndex);
+        case "unmark":
+            try {
+                taskIndex = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                throw new SunooException("ENGENE, I need a number to mark!");
+            }
+            return new UnmarkCommand(taskIndex);
+        case "delete":
+            try {
+                taskIndex = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                throw new SunooException("ENGENE, I need a number to delete!");
+            }
+            return new DeleteCommand(taskIndex);
+        case "todo":
+            String todoDescription;
+            try {
+                todoDescription = parts[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new SunooException("Sorry ENGENE, you don't have a todo description!");
+            }
+            return new AddCommand(new ToDo(false, todoDescription));
+        case "deadline":
+            String deadlineDescription;
+            try {
+                deadlineDescription = parts[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new SunooException("Sorry ENGENE, your deadline task is empty!");
+            }
+            String[] splitResult = deadlineDescription.split(" /by ");
+            if (splitResult.length < 2) {
+                throw new SunooException("""                      
+                        ENGENE, there seems to be a problem!
+                        1. Remember to include the " /by " keyword between your task description and deadline so I can know when it is due!
+                        2. Your description and deadline cannot be empty!""");
+            }
+            String deadlineTaskDescription = splitResult[0];
+            LocalDateTime deadline = localDateTimeParser(splitResult[1]);
+            return new AddCommand(new Deadline(false, deadlineTaskDescription, deadline));
+        case "event":
+            String eventDescription;
+            try {
+                eventDescription = parts[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new SunooException("Sorry ENGENE, your event task is empty!");
+            }
+            String[] fromSplit = eventDescription.split(" /from ");
+            if (fromSplit.length < 2) {
+                throw new SunooException("""                      
+                        ENGENE, there seems to be a problem!
+                        1. Remember to include the " /from " keyword between your event description and event start time!
+                        2. Remember to include the " /to " keyword between your event start time and event end time!
+                        3. Your description, event start time and event end time cannot be empty!""");
+            }
+            String[] toSplit = fromSplit[1].split(" /to ");
+            if (toSplit.length < 2) {
+                throw new SunooException("""                        
+                        ENGENE, there seems to be a problem!
+                        1. Remember to include the " /from " keyword between your event description and event start time!
+                        2. Remember to include the " /to " keyword between your event start time and event end time!
+                        3. Your description, event start time and event end time cannot be empty!""");
+            }
+            String taskDescription = fromSplit[0];
+            LocalDateTime startTime = localDateTimeParser(toSplit[0]);
+            LocalDateTime endTime = localDateTimeParser(toSplit[1]);
+            return new AddCommand(new Event(false, taskDescription, startTime, endTime));
+        default:
+            return new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
+        }
+    }
+
+    private static LocalDateTime localDateTimeParser(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(input, formatter);
+    }
+
+}
