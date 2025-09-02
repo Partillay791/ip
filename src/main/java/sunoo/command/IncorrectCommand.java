@@ -12,6 +12,14 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        return o instanceof IncorrectCommand;
+    }
+
+    @Override
     public void execute(TaskList tasks) {
         Ui.showLine();
         Ui.showMessage(incorrectMessage);

@@ -26,6 +26,7 @@ public class DeleteCommand extends Command {
         Ui.showMessage(tasks.deleteTask(indexToDelete).toString());
         Ui.showMessage("Now you have " + tasks.getNumTasks()
                 + " task(s) in the list left, hwaiting!");
+        Ui.showLine();
     }
 
     @Override
