@@ -77,7 +77,7 @@ public class Parser {
             if (splitResult.length < 2) {
                 throw new SunooException("""                      
                         ENGENE, there seems to be a problem!
-                        1. Remember to include the " /by " keyword between your task description and deadline so I can know when it is due!
+                        1. Remember to include the " /by " keyword between your task description and deadline!
                         2. Your description and deadline cannot be empty!""");
             }
             String deadlineTaskDescription = splitResult[0];
@@ -100,7 +100,7 @@ public class Parser {
             if (fromSplit.length < 2) {
                 throw new SunooException("""                      
                         ENGENE, there seems to be a problem!
-                        1. Remember to include the " /from " keyword between your event description and event start time!
+                        1. Remember to include the " /from " keyword between your event description and start time!
                         2. Remember to include the " /to " keyword between your event start time and event end time!
                         3. Your description, event start time and event end time cannot be empty!""");
             }
@@ -108,7 +108,7 @@ public class Parser {
             if (toSplit.length < 2) {
                 throw new SunooException("""                        
                         ENGENE, there seems to be a problem!
-                        1. Remember to include the " /from " keyword between your event description and event start time!
+                        1. Remember to include the " /from " keyword between your event description and start time!
                         2. Remember to include the " /to " keyword between your event start time and event end time!
                         3. Your description, event start time and event end time cannot be empty!""");
             }

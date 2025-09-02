@@ -5,5 +5,5 @@ import sunoo.task.TaskList;
 public abstract class Command {
     public abstract void execute(TaskList tasks);
 
-    public abstract boolean isExit();
+    public abstract boolean shouldExit();
 }

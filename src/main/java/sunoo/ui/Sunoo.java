@@ -13,17 +13,17 @@ import sunoo.storage.Storage;
 import sunoo.task.TaskList;
 
 public class Sunoo {
-    private static boolean isExit = false;
+    private static boolean isExitNext = false;
     private static TaskList tasks = new TaskList();
 
     public static void main(String[] args) throws IOException {
         tasks = Storage.loadTasks();
         Ui.greetUser();
-        while (!isExit) {
+        while (!isExitNext) {
             try {
                 Command c = Parser.parse(Ui.readCommand());
                 c.execute(tasks);
-                isExit = c.isExit();
+                isExitNext = c.shouldExit();
             } catch (SunooException e) {
                 Ui.showErrorMessage(e.getMessage());
             } finally {
