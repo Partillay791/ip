@@ -19,7 +19,17 @@ import sunoo.task.Deadline;
 import sunoo.task.Event;
 import sunoo.task.ToDo;
 
+/**
+ * Parses user's input.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input into a command to be executed.
+     *
+     * @param userInput User's input.
+     * @return Command that corresponds to user's input.
+     */
     public static Command parse(String userInput) {
         userInput = userInput.trim();
         String[] parts = userInput.split("\\s+", 2);
@@ -127,6 +137,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string and returns a LocalDateTime object.
+     *
+     * @param input Input to be parsed.
+     * @return LocalDateTime object that represents date time.
+     */
     private static LocalDateTime localDateTimeParser(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(input, formatter);

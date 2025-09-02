@@ -12,10 +12,19 @@ import sunoo.storage.Storage;
 
 import sunoo.task.TaskList;
 
+/**
+ * Represents a chatbot that helps a user to manage a list of tasks.
+ */
 public class Sunoo {
     private static boolean isExit = false;
     private static TaskList tasks = new TaskList();
 
+    /**
+     * Runs the main task as a chatbot.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws IOException If an error occurs while loading or saving tasks via storage.
+     */
     public static void main(String[] args) throws IOException {
         tasks = Storage.loadTasks();
         Ui.greetUser();

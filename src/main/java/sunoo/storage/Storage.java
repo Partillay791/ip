@@ -15,9 +15,20 @@ import sunoo.task.Task;
 import sunoo.task.TaskList;
 import sunoo.task.ToDo;
 
+/**
+ * Represents a storage that writes tasks to a txt file and unloads tasks from the same file.
+ */
 public class Storage {
+
+    /** Default path to the txt file */
     private static final String FILE_PATH = "data/sunoo.txt";
 
+    /**
+     * Returns the current tasklist as represented in the txt file.
+     *
+     * @return The current tasklist.
+     * @throws IOException If the file cannot be read or does not exist.
+     */
     public static TaskList loadTasks() throws IOException {
         TaskList tasks = new TaskList();
         ensureFileExists();
@@ -46,6 +57,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates and writes list of tasks into the txt file.
+     *
+     * @param tasks Current list of tasks.
+     * @throws IOException If the file cannot be written to or an I/O error occurs.
+     */
     public static void updateTaskListInTxt(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : tasks.getTasks()) {
@@ -55,6 +72,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Ensures that the file and its parent directories exist.
+     * Creates the file and directories if they do not exist.
+     *
+     * @throws IOException If the file or directories cannot be created.
+     */
     private static void ensureFileExists() throws IOException {
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs();
