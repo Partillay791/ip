@@ -6,6 +6,17 @@ public class ToDo extends Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof ToDo) {
+            return (isDone == ((ToDo) o).isDone && description.equals(((ToDo) o).description));
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
