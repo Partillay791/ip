@@ -14,7 +14,7 @@ public class Ui {
                 """;
 
     public static String readCommand() {
-        return SC.nextLine().trim();
+        return SC.nextLine();
     }
 
     public static void showLine() {

@@ -2,6 +2,7 @@ package sunoo.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import sunoo.command.AddCommand;
 import sunoo.command.ByeCommand;
@@ -20,7 +21,8 @@ import sunoo.task.ToDo;
 
 public class Parser {
     public static Command parse(String userInput) {
-        String[] parts = userInput.split(" ", 2);
+        userInput = userInput.trim();
+        String[] parts = userInput.split("\\s+", 2);
         String command = parts[0];
         int taskIndex;
         switch (command) {
@@ -72,7 +74,12 @@ public class Parser {
                         2. Your description and deadline cannot be empty!""");
             }
             String deadlineTaskDescription = splitResult[0];
-            LocalDateTime deadline = localDateTimeParser(splitResult[1]);
+            LocalDateTime deadline;
+            try {
+                deadline = localDateTimeParser(splitResult[1]);
+            } catch (DateTimeParseException e) {
+                throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
+            }
             return new AddCommand(new Deadline(false, deadlineTaskDescription, deadline));
         case "event":
             String eventDescription;
@@ -98,8 +105,13 @@ public class Parser {
                         3. Your description, event start time and event end time cannot be empty!""");
             }
             String taskDescription = fromSplit[0];
-            LocalDateTime startTime = localDateTimeParser(toSplit[0]);
-            LocalDateTime endTime = localDateTimeParser(toSplit[1]);
+            LocalDateTime startTime, endTime;
+            try {
+                startTime = localDateTimeParser(toSplit[0]);
+                endTime = localDateTimeParser(toSplit[1]);
+            } catch (DateTimeParseException e) {
+                throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
+            }
             return new AddCommand(new Event(false, taskDescription, startTime, endTime));
         default:
             return new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
