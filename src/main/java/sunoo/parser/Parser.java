@@ -26,31 +26,37 @@ public class Parser {
         String command = parts[0];
         int taskIndex;
         switch (command) {
+
         case "bye":
             return new ByeCommand();
+
         case "list":
             return new ListCommand();
+
         case "mark":
             try {
                 taskIndex = Integer.parseInt(parts[1]);
-            } catch (NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 throw new SunooException("ENGENE, I need a number to mark!");
             }
             return new MarkCommand(taskIndex);
+
         case "unmark":
             try {
                 taskIndex = Integer.parseInt(parts[1]);
-            } catch (NumberFormatException e) {
-                throw new SunooException("ENGENE, I need a number to mark!");
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                throw new SunooException("ENGENE, I need a number to unmark!");
             }
             return new UnmarkCommand(taskIndex);
+
         case "delete":
             try {
                 taskIndex = Integer.parseInt(parts[1]);
-            } catch (NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 throw new SunooException("ENGENE, I need a number to delete!");
             }
             return new DeleteCommand(taskIndex);
+
         case "todo":
             String todoDescription;
             try {
@@ -59,6 +65,7 @@ public class Parser {
                 throw new SunooException("Sorry ENGENE, you don't have a todo description!");
             }
             return new AddCommand(new ToDo(false, todoDescription));
+
         case "deadline":
             String deadlineDescription;
             try {
@@ -66,7 +73,7 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new SunooException("Sorry ENGENE, your deadline task is empty!");
             }
-            String[] splitResult = deadlineDescription.split(" /by ");
+            String[] splitResult = deadlineDescription.split("\\s+/by\\s+");
             if (splitResult.length < 2) {
                 throw new SunooException("""                      
                         ENGENE, there seems to be a problem!
@@ -81,6 +88,7 @@ public class Parser {
                 throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
             }
             return new AddCommand(new Deadline(false, deadlineTaskDescription, deadline));
+
         case "event":
             String eventDescription;
             try {
@@ -88,7 +96,7 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new SunooException("Sorry ENGENE, your event task is empty!");
             }
-            String[] fromSplit = eventDescription.split(" /from ");
+            String[] fromSplit = eventDescription.split("\\s+/from\\s+");
             if (fromSplit.length < 2) {
                 throw new SunooException("""                      
                         ENGENE, there seems to be a problem!
@@ -96,7 +104,7 @@ public class Parser {
                         2. Remember to include the " /to " keyword between your event start time and event end time!
                         3. Your description, event start time and event end time cannot be empty!""");
             }
-            String[] toSplit = fromSplit[1].split(" /to ");
+            String[] toSplit = fromSplit[1].split("\\s+/to\\s+");
             if (toSplit.length < 2) {
                 throw new SunooException("""                        
                         ENGENE, there seems to be a problem!
@@ -113,6 +121,7 @@ public class Parser {
                 throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
             }
             return new AddCommand(new Event(false, taskDescription, startTime, endTime));
+
         default:
             return new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
         }
