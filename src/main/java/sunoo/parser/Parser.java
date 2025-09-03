@@ -8,6 +8,7 @@ import sunoo.command.AddCommand;
 import sunoo.command.ByeCommand;
 import sunoo.command.Command;
 import sunoo.command.DeleteCommand;
+import sunoo.command.FindCommand;
 import sunoo.command.IncorrectCommand;
 import sunoo.command.ListCommand;
 import sunoo.command.MarkCommand;
@@ -42,6 +43,15 @@ public class Parser {
 
         case "list":
             return new ListCommand();
+
+        case "find":
+            String keyword;
+            try {
+                keyword = parts[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new SunooException("ENGENE, give me a keyword so I can find tasks!");
+            }
+            return new FindCommand(keyword);
 
         case "mark":
             try {

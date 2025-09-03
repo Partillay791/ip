@@ -64,4 +64,8 @@ public class Task {
     public void markAsNotDone() {
         isDone = false;
     }
+
+    public boolean descriptionContainsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
 }
