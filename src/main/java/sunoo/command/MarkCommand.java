@@ -6,13 +6,30 @@ import sunoo.task.TaskList;
 
 import sunoo.ui.Ui;
 
+/**
+ * Represents an executable command that marks a task as done.
+ */
 public class MarkCommand extends Command {
+
+    /** Index of the task to mark as done */
     private final int indexToMark;
 
+    /**
+     * Creates a new MarkCommand with the index of the task to mark as done.
+     *
+     * @param indexToMark Index of the task to mark as done.
+     */
     public MarkCommand(int indexToMark) {
         this.indexToMark = indexToMark;
     }
 
+    /**
+     * {@inheritDoc}
+     * Marks the task corresponding to the index given.
+     *
+     * @param tasks The list of current tasks.
+     * @throws SunooException If index is invalid.
+     */
     @Override
     public void execute(TaskList tasks) {
         if (indexToMark <= 0) {
@@ -28,6 +45,11 @@ public class MarkCommand extends Command {
         Ui.showLine();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

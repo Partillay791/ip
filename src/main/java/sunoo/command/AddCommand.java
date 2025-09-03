@@ -5,13 +5,29 @@ import sunoo.task.TaskList;
 
 import sunoo.ui.Ui;
 
+/**
+ * Represents an executable command that adds a task to the tasklist.
+ */
 public class AddCommand extends Command {
+
+    /** Task to be added */
     private final Task taskToAdd;
 
+    /**
+     * Creats an AddCommand with the task to be added.
+     *
+     * @param taskToAdd Task to be added.
+     */
     public AddCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }
 
+    /**
+     * {@inheritDoc}
+     * Adds the task to the tasklist.
+     *
+     * @param tasks The list of current tasks.
+     */
     @Override
     public void execute(TaskList tasks) {
         Ui.showLine();
@@ -22,6 +38,11 @@ public class AddCommand extends Command {
         Ui.showLine();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;
