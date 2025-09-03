@@ -44,7 +44,7 @@ public class AddCommand extends Command {
      * @return false.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

@@ -19,5 +19,5 @@ public abstract class Command {
      *
      * @return True if chatbot Sunoo should exit.
      */
-    public abstract boolean isExit();
+    public abstract boolean shouldExit();
 }

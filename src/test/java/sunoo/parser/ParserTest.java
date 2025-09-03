@@ -1,5 +1,8 @@
 package sunoo.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import sunoo.command.AddCommand;
@@ -10,9 +13,6 @@ import sunoo.exception.SunooException;
 
 import sunoo.task.Deadline;
 import sunoo.task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
