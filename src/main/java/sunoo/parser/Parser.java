@@ -13,9 +13,7 @@ import sunoo.command.IncorrectCommand;
 import sunoo.command.ListCommand;
 import sunoo.command.MarkCommand;
 import sunoo.command.UnmarkCommand;
-
 import sunoo.exception.SunooException;
-
 import sunoo.task.Deadline;
 import sunoo.task.Event;
 import sunoo.task.ToDo;
@@ -95,7 +93,7 @@ public class Parser {
             }
             String[] splitResult = deadlineDescription.split("\\s+/by\\s+");
             if (splitResult.length < 2) {
-                throw new SunooException("""                      
+                throw new SunooException("""
                         ENGENE, there seems to be a problem!
                         1. Remember to include the " /by " keyword between your task description and deadline!
                         2. Your description and deadline cannot be empty!""");
@@ -118,7 +116,7 @@ public class Parser {
             }
             String[] fromSplit = eventDescription.split("\\s+/from\\s+");
             if (fromSplit.length < 2) {
-                throw new SunooException("""                      
+                throw new SunooException("""
                         ENGENE, there seems to be a problem!
                         1. Remember to include the " /from " keyword between your event description and start time!
                         2. Remember to include the " /to " keyword between your event start time and event end time!
@@ -126,14 +124,15 @@ public class Parser {
             }
             String[] toSplit = fromSplit[1].split("\\s+/to\\s+");
             if (toSplit.length < 2) {
-                throw new SunooException("""                        
+                throw new SunooException("""
                         ENGENE, there seems to be a problem!
                         1. Remember to include the " /from " keyword between your event description and start time!
                         2. Remember to include the " /to " keyword between your event start time and event end time!
                         3. Your description, event start time and event end time cannot be empty!""");
             }
             String taskDescription = fromSplit[0];
-            LocalDateTime startTime, endTime;
+            LocalDateTime startTime;
+            LocalDateTime endTime;
             try {
                 startTime = localDateTimeParser(toSplit[0]);
                 endTime = localDateTimeParser(toSplit[1]);

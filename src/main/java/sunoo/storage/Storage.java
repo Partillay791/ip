@@ -3,10 +3,8 @@ package sunoo.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Scanner;
 
 import sunoo.task.Deadline;
@@ -52,6 +50,9 @@ public class Storage {
                 tasks.addTask(new Event(isDone, taskParts[2],
                         LocalDateTime.parse(taskParts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         LocalDateTime.parse(taskParts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+                break;
+            default:
+                break;
             }
         }
         return tasks;

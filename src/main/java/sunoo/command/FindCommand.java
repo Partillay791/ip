@@ -2,7 +2,6 @@ package sunoo.command;
 
 import sunoo.task.Task;
 import sunoo.task.TaskList;
-
 import sunoo.ui.Ui;
 
 /**

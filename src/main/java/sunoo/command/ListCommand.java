@@ -1,11 +1,10 @@
 package sunoo.command;
 
+import java.util.ArrayList;
+
 import sunoo.task.Task;
 import sunoo.task.TaskList;
-
 import sunoo.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents an executable command that lists all the tasks in the tasklist.

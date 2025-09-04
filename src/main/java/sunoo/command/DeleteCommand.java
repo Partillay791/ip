@@ -1,9 +1,7 @@
 package sunoo.command;
 
 import sunoo.exception.SunooException;
-
 import sunoo.task.TaskList;
-
 import sunoo.ui.Ui;
 
 /**
