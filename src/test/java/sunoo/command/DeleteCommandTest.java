@@ -1,17 +1,16 @@
 package sunoo.command;
 
-import org.junit.jupiter.api.Test;
-
-import sunoo.exception.SunooException;
-
-import sunoo.task.Deadline;
-import sunoo.task.TaskList;
-import sunoo.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import sunoo.exception.SunooException;
+import sunoo.task.Deadline;
+import sunoo.task.TaskList;
+import sunoo.task.ToDo;
 
 public class DeleteCommandTest {
 

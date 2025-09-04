@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 import sunoo.command.AddCommand;
 import sunoo.command.IncorrectCommand;
 import sunoo.command.MarkCommand;
-
 import sunoo.exception.SunooException;
-
 import sunoo.task.Deadline;
 import sunoo.task.ToDo;
 
@@ -48,9 +46,9 @@ public class ParserTest {
             assertEquals(new AddCommand(new Deadline(false, "homework", null)),
                     Parser.parse("deadline homework /by "));
         } catch (SunooException e) {
-            assertEquals("""                      
+            assertEquals("""
                         ENGENE, there seems to be a problem!
-                        1. Remember to include the " /by " keyword between your task description and deadline so I can know when it is due!
+                        1. Remember to include the " /by " keyword between your task description and deadline!
                         2. Your description and deadline cannot be empty!""",
                     e.getMessage());
         }

@@ -3,13 +3,9 @@ package sunoo.ui;
 import java.io.IOException;
 
 import sunoo.command.Command;
-
 import sunoo.exception.SunooException;
-
 import sunoo.parser.Parser;
-
 import sunoo.storage.Storage;
-
 import sunoo.task.TaskList;
 
 /**
