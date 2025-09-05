@@ -23,24 +23,23 @@ public class MarkCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Marks the task corresponding to the index given.
+     * <p>Marks the task corresponding to the index given.</p>
      *
-     * @param tasks The list of current tasks.
      * @throws SunooException If index is invalid.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public String execute(TaskList tasks) {
         if (indexToMark <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
         if (indexToMark > tasks.getNumTasks()) {
             throw new SunooException("Sorry ENGENE, you don't have that many tasks!");
         }
-        Ui.showLine();
         tasks.markTask(indexToMark);
-        Ui.showMessage("Nice job, ENGENE! I've marked this task as done:");
-        Ui.showMessage(tasks.getTask(indexToMark).toString());
-        Ui.showLine();
+        String response = Ui.joinLines(
+                "Nice job, ENGENE! I've marked this task as done:",
+                tasks.getTask(indexToMark).toString());
+        return Ui.wrapWithHorizontalLines(response);
     }
 
     /**
