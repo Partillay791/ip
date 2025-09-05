@@ -23,24 +23,23 @@ public class UnmarkCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Marks the task corresponding to the index given as not done.
+     * <p>Marks the task corresponding to the index given as not done.</p>
      *
-     * @param tasks The list of current tasks.
      * @throws SunooException If index is invalid.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public String execute(TaskList tasks) {
         if (indexToUnmark <= 0) {
             throw new SunooException("Sorry ENGENE, that's not a valid task index!");
         }
         if (indexToUnmark > tasks.getNumTasks()) {
             throw new SunooException("Sorry ENGENE, you don't have that many tasks!");
         }
-        Ui.showLine();
-        tasks.unmarkTask(indexToUnmark);
-        Ui.showMessage("Ok, ENGENE! I've marked this task as not done yet:");
-        Ui.showMessage(tasks.getTask(indexToUnmark).toString());
-        Ui.showLine();
+        tasks.markTask(indexToUnmark);
+        String response = Ui.joinLines(
+                "Ok, ENGENE! I've marked this task as not done yet:",
+                tasks.getTask(indexToUnmark).toString());
+        return Ui.wrapWithHorizontalLines(response);
     }
 
     /**

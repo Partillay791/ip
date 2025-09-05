@@ -10,13 +10,11 @@ public class ByeCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Instruct Ui to show a Goodbye message.
-     *
-     * @param tasks The list of current tasks.
+     * <p>Particularly, this method instruct Ui to show a Goodbye message.</p>
      */
     @Override
-    public void execute(TaskList tasks) {
-        Ui.showExitMessage();
+    public String execute(TaskList tasks) {
+        return Ui.getExitMessage();
     }
 
     /**

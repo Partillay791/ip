@@ -15,25 +15,22 @@ public class Sunoo {
     private static boolean isExitNext = false;
     private static TaskList tasks = new TaskList();
 
-    /**
-     * Runs the main task as a chatbot.
-     *
-     * @param args Command-line arguments (not used).
-     * @throws IOException If an error occurs while loading or saving tasks via storage.
-     */
-    public static void main(String[] args) throws IOException {
+    public static String getResponse(String userInput) throws IOException {
+        String response;
         tasks = Storage.loadTasks();
-        Ui.greetUser();
-        while (!isExitNext) {
-            try {
-                Command c = Parser.parse(Ui.readCommand());
-                c.execute(tasks);
-                isExitNext = c.shouldExit();
-            } catch (SunooException e) {
-                Ui.showErrorMessage(e.getMessage());
-            } finally {
-                Storage.updateTaskListInTxt(tasks);
-            }
+        try {
+            Command c = Parser.parse(userInput);
+            response = c.execute(tasks);
+            isExitNext = c.shouldExit();
+        } catch (SunooException e) {
+            response = Ui.wrapWithHorizontalLines(e.getMessage());
+        } finally {
+            Storage.updateTaskListInTxt(tasks);
         }
+        return response;
+    }
+
+    public static boolean getShouldExit() {
+        return isExitNext;
     }
 }

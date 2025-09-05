@@ -23,18 +23,15 @@ public class AddCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Adds the task to the tasklist.
-     *
-     * @param tasks The list of current tasks.
+     * <p>Adds the task to the tasklist.</p>
      */
     @Override
-    public void execute(TaskList tasks) {
-        Ui.showLine();
-        Ui.showMessage("Got it! Ddeonu has added this task for you:");
-        Ui.showMessage(tasks.addTask(taskToAdd).toString());
-        Ui.showMessage("Now you have " + tasks.getNumTasks()
-                + " task(s) in the list, hwaiting!");
-        Ui.showLine();
+    public String execute(TaskList tasks) {
+        String response = Ui.joinLines(
+                "Got it! Ddeonu has added this task for you:",
+                tasks.addTask(taskToAdd).toString(),
+                "Now you have " + tasks.getNumTasks() + " task(s) in the list, hwaiting!");
+        return Ui.wrapWithHorizontalLines(response);
     }
 
     /**

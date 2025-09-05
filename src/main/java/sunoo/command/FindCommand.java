@@ -1,5 +1,7 @@
 package sunoo.command;
 
+import java.util.ArrayList;
+
 import sunoo.task.Task;
 import sunoo.task.TaskList;
 import sunoo.ui.Ui;
@@ -23,22 +25,23 @@ public class FindCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Instructs Ui to show tasks that has a description containing the keyword.
-     *
-     * @param tasks The list of current tasks.
+     * <p>Instructs Ui to show tasks that has a description containing the keyword.</p>
      */
     @Override
-    public void execute(TaskList tasks) {
-        Ui.showLine();
-        Ui.showMessage("ENGENE, here are the matching tasks for " + keyword + ":");
+    public String execute(TaskList tasks) {
+        ArrayList<String> matchedTasksToShow = new ArrayList<>();
         int i = 1;
         for (Task task : tasks.getTasks()) {
             if (task.descriptionContainsKeyword(keyword)) {
-                Ui.showMessage(i + ". " + task);
+                matchedTasksToShow.add(i + ". " + task);
                 i++;
             }
         }
-        Ui.showLine();
+        String response = Ui.joinLines(matchedTasksToShow);
+        response = Ui.joinLines(
+                "ENGENE, here are the matching tasks for " + keyword + ":",
+                response);
+        return Ui.wrapWithHorizontalLines(response);
     }
 
     /**

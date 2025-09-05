@@ -36,15 +36,11 @@ public class IncorrectCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Tells the user that their input is invalid.
-     *
-     * @param tasks The list of current tasks.
+     * <p>Tells the user that their input is invalid.</p>
      */
     @Override
-    public void execute(TaskList tasks) {
-        Ui.showLine();
-        Ui.showMessage(incorrectMessage);
-        Ui.showLine();
+    public String execute(TaskList tasks) {
+        return Ui.wrapWithHorizontalLines(incorrectMessage);
     }
 
     /**

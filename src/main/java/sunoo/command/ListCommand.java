@@ -13,19 +13,20 @@ public class ListCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * Instructs Ui to show all the tasks in the tasklist to the user.
-     *
-     * @param tasks The list of current tasks.
+     * <p>Instructs Ui to show all the tasks in the tasklist to the user.</p>
      */
     @Override
-    public void execute(TaskList tasks) {
-        Ui.showLine();
-        Ui.showMessage("ENGENE, here are the tasks recorded by ddeonu:");
+    public String execute(TaskList tasks) {
+        ArrayList<String> tasksToShow = new ArrayList<>();
         ArrayList<Task> taskList = tasks.getTasks();
         for (int i = 1; i <= taskList.size(); i++) {
-            Ui.showMessage(i + ". " + taskList.get(i - 1));
+            tasksToShow.add(i + ". " + taskList.get(i - 1));
         }
-        Ui.showLine();
+        String response = Ui.joinLines(tasksToShow);
+        response = Ui.joinLines(
+                "ENGENE, here are the tasks recorded by ddeonu:",
+                response);
+        return Ui.wrapWithHorizontalLines(response);
     }
 
     /**

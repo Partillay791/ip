@@ -8,11 +8,12 @@ import sunoo.task.TaskList;
 public abstract class Command {
 
     /**
-     * Executes the command and instructs the Ui to show messages.
+     * Executes the command and instructs the Ui to put messages of to be shown together and returns it.
      *
      * @param tasks The list of current tasks.
+     * @return String to be shown.
      */
-    public abstract void execute(TaskList tasks);
+    public abstract String execute(TaskList tasks);
 
     /**
      * Returns instruction of whether chatbot should exit after execution of command.
