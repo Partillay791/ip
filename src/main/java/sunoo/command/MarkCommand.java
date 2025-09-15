@@ -39,6 +39,7 @@ public class MarkCommand extends Command {
         String response = Ui.joinLines(
                 "Nice job, ENGENE! I've marked this task as done:",
                 tasks.getTask(indexToMark).toString());
+        assert tasks.getTask(indexToMark).getCompleteStatus();
         return Ui.wrapWithHorizontalLines(response);
     }
 

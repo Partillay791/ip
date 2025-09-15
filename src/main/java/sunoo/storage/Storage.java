@@ -34,6 +34,7 @@ public class Storage {
         while (s.hasNextLine()) {
             String taskText = s.nextLine();
             String[] taskParts = taskText.split(" \\| ");
+            assert taskParts.length >= 3;
             boolean isDone;
             switch (taskParts[0]) {
             case "T":
@@ -52,6 +53,7 @@ public class Storage {
                         LocalDateTime.parse(taskParts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
                 break;
             default:
+                assert false;
                 break;
             }
         }

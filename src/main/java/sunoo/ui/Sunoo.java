@@ -27,6 +27,7 @@ public class Sunoo {
         } finally {
             Storage.updateTaskListInTxt(tasks);
         }
+        assert response != null;
         return response;
     }
 

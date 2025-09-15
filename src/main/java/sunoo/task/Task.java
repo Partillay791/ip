@@ -65,6 +65,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean getCompleteStatus() {
+        return isDone;
+    }
+
     /**
      * Returns boolean value of whether the task description contains a keyword.
      *
