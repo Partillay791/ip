@@ -64,6 +64,14 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses commands that require an integer index, such as "mark", "unmark", or "delete".
+     *
+     * @param parts       User input where {@code parts[1]} is expected to be the index.
+     * @param commandType The type of index-based command: "mark", "unmark", "delete".
+     * @return Corresponding {@link Command} with the index applied.
+     * @throws SunooException if the index is missing or not a valid number.
+     */
     private static Command parseIndexedInput(String[] parts, String commandType) {
         int taskIndex;
         try {
