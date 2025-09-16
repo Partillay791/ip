@@ -27,10 +27,13 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        int numTasksBefore = tasks.getNumTasks();
         String response = Ui.joinLines(
                 "Got it! Ddeonu has added this task for you:",
                 tasks.addTask(taskToAdd).toString(),
                 "Now you have " + tasks.getNumTasks() + " task(s) in the list, hwaiting!");
+        int numTasksAfter = tasks.getNumTasks();
+        assert numTasksBefore + 1 == numTasksAfter;
         return Ui.wrapWithHorizontalLines(response);
     }
 

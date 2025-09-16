@@ -35,10 +35,11 @@ public class UnmarkCommand extends Command {
         if (indexToUnmark > tasks.getNumTasks()) {
             throw new SunooException("Sorry ENGENE, you don't have that many tasks!");
         }
-        tasks.markTask(indexToUnmark);
+        tasks.unmarkTask(indexToUnmark);
         String response = Ui.joinLines(
                 "Ok, ENGENE! I've marked this task as not done yet:",
                 tasks.getTask(indexToUnmark).toString());
+        assert !tasks.getTask(indexToUnmark).getCompleteStatus();
         return Ui.wrapWithHorizontalLines(response);
     }
 
