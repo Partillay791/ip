@@ -35,11 +35,14 @@ public class DeleteCommand extends Command {
         if (indexToDelete > tasks.getNumTasks()) {
             throw new SunooException("Sorry ENGENE, you don't have that many tasks!");
         }
+        int numTasksBefore = tasks.getNumTasks();
         String response = Ui.joinLines(
                 "Ok, ENGENE! I've removed this task:",
                 tasks.deleteTask(indexToDelete).toString(),
                 "Now you have " + tasks.getNumTasks()
                         + " task(s) in the list left, hwaiting!");
+        int numTasksAfter = tasks.getNumTasks();
+        assert numTasksBefore - 1 == numTasksAfter;
         return Ui.wrapWithHorizontalLines(response);
     }
 
