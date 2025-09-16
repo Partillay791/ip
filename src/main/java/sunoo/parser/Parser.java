@@ -23,6 +23,23 @@ import sunoo.task.ToDo;
  */
 public class Parser {
 
+    /** Error messages */
+    private static final String ERROR_FIND_KEYWORD = "ENGENE, give me a keyword so I can find tasks!";
+    private static final String ERROR_INDEX_REQUIRED = "ENGENE, I need a number index to mark/unmark/delete tasks!";
+    private static final String ERROR_TODO_EMPTY = "Sorry ENGENE, you don't have a todo description!";
+    private static final String ERROR_DEADLINE_EMPTY = "Sorry ENGENE, your deadline task is empty!";
+    private static final String ERROR_DEADLINE_FORMAT = """
+        ENGENE, there seems to be a problem!
+        1. Remember to include the " /by " keyword between your task description and deadline!
+        2. Your description and deadline cannot be empty!""";
+    private static final String ERROR_EVENT_EMPTY = "Sorry ENGENE, your event task is empty!";
+    private static final String ERROR_EVENT_FORMAT = """
+        ENGENE, there seems to be a problem!
+        1. Remember to include the " /from " keyword between your event description and start time!
+        2. Remember to include the " /to " keyword between your event start time and event end time!
+        3. Your description, event start time and event end time cannot be empty!""";
+    private static final String ERROR_DATETIME_FORMAT = "ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!";
+
     /**
      * Parses the user's input into a command to be executed.
      *
@@ -33,117 +50,97 @@ public class Parser {
         userInput = userInput.trim();
         String[] parts = userInput.split("\\s+", 2);
         String command = parts[0];
+        return switch (command) {
+        case "bye" -> new ByeCommand();
+        case "list" -> new ListCommand();
+        case "find" -> parseFindInput(parts);
+        case "mark" -> parseIndexedInput(parts, "mark");
+        case "unmark" -> parseIndexedInput(parts, "unmark");
+        case "delete" -> parseIndexedInput(parts, "delete");
+        case "todo" -> parseToDoInput(parts);
+        case "deadline" -> parseDeadlineInput(parts);
+        case "event" -> parseEventInput(parts);
+        default -> new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
+        };
+    }
+
+    private static Command parseIndexedInput(String[] parts, String commandType) {
         int taskIndex;
-        switch (command) {
-
-        case "bye":
-            return new ByeCommand();
-
-        case "list":
-            return new ListCommand();
-
-        case "find":
-            String keyword;
-            try {
-                keyword = parts[1];
-            } catch (IndexOutOfBoundsException e) {
-                throw new SunooException("ENGENE, give me a keyword so I can find tasks!");
-            }
-            return new FindCommand(keyword);
-
-        case "mark":
-            try {
-                taskIndex = Integer.parseInt(parts[1]);
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                throw new SunooException("ENGENE, I need a number to mark!");
-            }
-            return new MarkCommand(taskIndex);
-
-        case "unmark":
-            try {
-                taskIndex = Integer.parseInt(parts[1]);
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                throw new SunooException("ENGENE, I need a number to unmark!");
-            }
-            return new UnmarkCommand(taskIndex);
-
-        case "delete":
-            try {
-                taskIndex = Integer.parseInt(parts[1]);
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                throw new SunooException("ENGENE, I need a number to delete!");
-            }
-            return new DeleteCommand(taskIndex);
-
-        case "todo":
-            String todoDescription;
-            try {
-                todoDescription = parts[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new SunooException("Sorry ENGENE, you don't have a todo description!");
-            }
-            return new AddCommand(new ToDo(false, todoDescription));
-
-        case "deadline":
-            String deadlineDescription;
-            try {
-                deadlineDescription = parts[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new SunooException("Sorry ENGENE, your deadline task is empty!");
-            }
-            String[] splitResult = deadlineDescription.split("\\s+/by\\s+");
-            if (splitResult.length < 2) {
-                throw new SunooException("""
-                        ENGENE, there seems to be a problem!
-                        1. Remember to include the " /by " keyword between your task description and deadline!
-                        2. Your description and deadline cannot be empty!""");
-            }
-            String deadlineTaskDescription = splitResult[0];
-            LocalDateTime deadline;
-            try {
-                deadline = localDateTimeParser(splitResult[1]);
-            } catch (DateTimeParseException e) {
-                throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
-            }
-            return new AddCommand(new Deadline(false, deadlineTaskDescription, deadline));
-
-        case "event":
-            String eventDescription;
-            try {
-                eventDescription = parts[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new SunooException("Sorry ENGENE, your event task is empty!");
-            }
-            String[] fromSplit = eventDescription.split("\\s+/from\\s+");
-            if (fromSplit.length < 2) {
-                throw new SunooException("""
-                        ENGENE, there seems to be a problem!
-                        1. Remember to include the " /from " keyword between your event description and start time!
-                        2. Remember to include the " /to " keyword between your event start time and event end time!
-                        3. Your description, event start time and event end time cannot be empty!""");
-            }
-            String[] toSplit = fromSplit[1].split("\\s+/to\\s+");
-            if (toSplit.length < 2) {
-                throw new SunooException("""
-                        ENGENE, there seems to be a problem!
-                        1. Remember to include the " /from " keyword between your event description and start time!
-                        2. Remember to include the " /to " keyword between your event start time and event end time!
-                        3. Your description, event start time and event end time cannot be empty!""");
-            }
-            String taskDescription = fromSplit[0];
-            LocalDateTime startTime;
-            LocalDateTime endTime;
-            try {
-                startTime = localDateTimeParser(toSplit[0]);
-                endTime = localDateTimeParser(toSplit[1]);
-            } catch (DateTimeParseException e) {
-                throw new SunooException("ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!");
-            }
-            return new AddCommand(new Event(false, taskDescription, startTime, endTime));
-
-        default:
-            return new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
+        try {
+            taskIndex = Integer.parseInt(parts[1]);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new SunooException(ERROR_INDEX_REQUIRED);
         }
+        return switch(commandType) {
+        case "mark" -> new MarkCommand(taskIndex);
+        case "unmark" -> new UnmarkCommand(taskIndex);
+        case "delete" -> new DeleteCommand(taskIndex);
+        default -> null;
+        };
+    }
+
+    /**
+     * Checks whether the second entry of the string array exists and returns it.
+     * The second entry contains information for the commands, e.g. FindCommand, AddCommand.
+     *
+     * @param parts Array of strings.
+     * @param errorMessage Error message to be used when throwing a SunooException.
+     * @return String that is of the second entry of the string array,
+     * @throws SunooException if there is no second entry of the string array.
+     */
+    private static String getCommandStringArguments(String[] parts, String errorMessage) {
+        if (parts.length < 2 || parts[1].isBlank()) {
+            throw new SunooException(errorMessage);
+        }
+        return parts[1];
+    }
+
+    private static FindCommand parseFindInput(String[] parts) {
+        String keyword = getCommandStringArguments(parts, ERROR_FIND_KEYWORD);
+        return new FindCommand(keyword);
+    }
+
+    private static AddCommand parseToDoInput(String[] parts) {
+        String todoDescription = getCommandStringArguments(parts, ERROR_TODO_EMPTY);
+        return new AddCommand(new ToDo(false, todoDescription));
+    }
+
+    /**
+     * Splits the string given to parts at the keyword given.
+     *
+     * @param input String to be split.
+     * @param keyword Keyword to split the string at.
+     * @param errorMessage Error message to be used when throwing a SunooException.
+     * @return String array containing the split results.
+     * @throws SunooException if splitting is unsuccessful.
+     */
+    private static String[] splitByKeyword(String input, String keyword, String errorMessage) {
+        String regex = "\\s+" + keyword + "\\s+";
+        String[] split = input.split(regex);
+        if (split.length < 2) {
+            throw new SunooException(errorMessage);
+        }
+        return split;
+    }
+
+    private static AddCommand parseDeadlineInput(String[] parts) {
+        String arg = getCommandStringArguments(parts, ERROR_DEADLINE_EMPTY);
+        String[] split = splitByKeyword(arg, "/by", ERROR_DEADLINE_FORMAT);
+        String description = split[0];
+        LocalDateTime deadline = parseLocalDateTime(split[1]);
+        return new AddCommand(new Deadline(false, description, deadline));
+    }
+
+    private static AddCommand parseEventInput(String[] parts) {
+        String arg = getCommandStringArguments(parts, ERROR_EVENT_EMPTY);
+        String[] fromSplit = splitByKeyword(arg, "/from", ERROR_EVENT_FORMAT);
+        String description = fromSplit[0];
+        String[] toSplit = splitByKeyword(fromSplit[1], "/to", ERROR_EVENT_FORMAT);
+
+        LocalDateTime start = parseLocalDateTime(toSplit[0]);
+        LocalDateTime end = parseLocalDateTime(toSplit[1]);
+
+        return new AddCommand(new Event(false, description, start, end));
     }
 
     /**
@@ -152,9 +149,12 @@ public class Parser {
      * @param input Input to be parsed.
      * @return LocalDateTime object that represents date time.
      */
-    private static LocalDateTime localDateTimeParser(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(input, formatter);
+    private static LocalDateTime parseLocalDateTime(String input) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new SunooException(ERROR_DATETIME_FORMAT);
+        }
     }
-
 }
