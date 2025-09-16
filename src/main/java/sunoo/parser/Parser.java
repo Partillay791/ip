@@ -49,17 +49,17 @@ public class Parser {
     public static Command parse(String userInput) {
         userInput = userInput.trim();
         String[] parts = userInput.split("\\s+", 2);
-        String command = parts[0];
+        String command = parts[0].toLowerCase();
         return switch (command) {
-        case "bye" -> new ByeCommand();
-        case "list" -> new ListCommand();
-        case "find" -> parseFindInput(parts);
-        case "mark" -> parseIndexedInput(parts, "mark");
-        case "unmark" -> parseIndexedInput(parts, "unmark");
-        case "delete" -> parseIndexedInput(parts, "delete");
-        case "todo" -> parseToDoInput(parts);
-        case "deadline" -> parseDeadlineInput(parts);
-        case "event" -> parseEventInput(parts);
+        case "bye", "end", "exit", "stop", "close" -> new ByeCommand();
+        case "list", "l", "ls", "show", "display" -> new ListCommand();
+        case "find", "f", "fd", "search", "lookup" -> parseFindInput(parts);
+        case "mark", "m" -> parseIndexedInput(parts, "mark");
+        case "unmark", "um" -> parseIndexedInput(parts, "unmark");
+        case "delete", "remove" -> parseIndexedInput(parts, "delete");
+        case "todo", "t" -> parseToDoInput(parts);
+        case "deadline", "d" -> parseDeadlineInput(parts);
+        case "event", "e" -> parseEventInput(parts);
         default -> new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
         };
     }
