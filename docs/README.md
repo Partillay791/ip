@@ -18,7 +18,7 @@ Commands should start with the keyword; to check aliases, type "alias"!
 9. Exit the program: bye
 10. For a surprise: enhypen TITLE_TRACK
 ```
-*Commands are case-insensitive.*
+Commands are *case-insensitive*.
 ## Viewing command aliases
 Shows aliases for commands. Format: `alias`
 ```java
@@ -42,7 +42,7 @@ Lists all tasks in the task list currently. Format: `list`, `l`, `ls`, `show`, `
 ## Deleting tasks
 Deletes the task corresponding to the index inputted. Format: `delete TASK_INDEX`, `remove TASK_INDEX`
 - Example: `delete 1`, `remove 1`
-- Only natural numbers are accepted as arguments, index cannot be larger than the number of current tasks.
+- Only natural numbers are accepted as arguments, index *cannot* be larger than the number of current tasks.
 - Tells number of tasks after the deletion.
 
 ![delete.png](delete.png)
@@ -50,14 +50,14 @@ Deletes the task corresponding to the index inputted. Format: `delete TASK_INDEX
 ## Marking tasks
 Marks the task corresponding to the index inputted as done. Format: `mark TASK_INDEX`
 - Example `mark 1`, `m 1`
-- Only natural numbers are accepted as arguments, index cannot be larger than the number of current tasks.
+- Only natural numbers are accepted as arguments, index *cannot* be larger than the number of current tasks.
 
 ![mark.png](mark.png)
 
 ## Unmarking tasks
 Marks the task corresponding to the index inputted as not done. Format: `unmark TASK_INDEX`
 - Example: `unmark 1`, `um 1`
-- Only natural numbers are accepted as arguments, index cannot be larger than the number of current tasks.
+- Only natural numbers are accepted as arguments, index *cannot* be larger than the number of current tasks.
 
 ![unmark.png](unmark.png)
 ## Adding todos
@@ -70,7 +70,7 @@ Adds a todo task containing its description. Format: `todo TASK_DESCRIPTION`, `t
 Adds a deadline task containing its description and due time.
 Format: `deadline TASK_DESCRIPTION /by yyyy-MM-dd HH:mm`, `d TASK_DESCRIPTION /by yyyy-MM-dd HH:mm`
 - Example: `deadline CS assignment /by 2025-12-31 23:59`, `d CS assignment /by 2025-12-31 23:59`
-- A `deadline` task *cannot* be added if the due date has passed.
+- A `deadline` task *cannot* be added if the due time has passed.
 - Tells number of tasks after the addition.
 
 ![deadline.png](deadline.png)
