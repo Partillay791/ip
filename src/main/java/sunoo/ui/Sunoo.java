@@ -3,6 +3,7 @@ package sunoo.ui;
 import java.io.IOException;
 
 import sunoo.command.Command;
+import sunoo.command.IncorrectCommand;
 import sunoo.exception.SunooException;
 import sunoo.parser.Parser;
 import sunoo.storage.Storage;
@@ -14,6 +15,7 @@ import sunoo.task.TaskList;
 public class Sunoo {
     private static boolean isExitNext = false;
     private static TaskList tasks = new TaskList();
+    private static String commandType;
 
     public static String getResponse(String userInput) throws IOException {
         String response;
@@ -21,9 +23,10 @@ public class Sunoo {
         try {
             Command c = Parser.parse(userInput);
             response = c.execute(tasks);
+            commandType = c.getClass().getSimpleName();
             isExitNext = c.shouldExit();
         } catch (SunooException e) {
-            response = Ui.wrapWithHorizontalLines(e.getMessage());
+            response = new IncorrectCommand(e.getMessage()).execute(tasks);
         } finally {
             Storage.updateTaskListInTxt(tasks);
         }
@@ -33,5 +36,9 @@ public class Sunoo {
 
     public static boolean getShouldExit() {
         return isExitNext;
+    }
+
+    public static String getCommandType() {
+        return commandType;
     }
 }
