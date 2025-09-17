@@ -57,6 +57,12 @@ public class DialogBox extends HBox {
         case "DeleteCommand":
             dialog.getStyleClass().add("delete-label");
             break;
+        case "Welcome":
+            dialog.getStyleClass().add("welcome-label");
+            break;
+        case "EnhypenCommand":
+            dialog.getStyleClass().add("enhypen-label");
+            break;
         default:
             // Do nothing
         }

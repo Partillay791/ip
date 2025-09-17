@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = Ui.getGreetingMessage();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, sunooImage, "")
+                DialogBox.getDukeDialog(greeting, sunooImage, "Welcome")
         );
     }
 

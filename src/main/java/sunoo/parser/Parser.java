@@ -8,6 +8,7 @@ import sunoo.command.AddCommand;
 import sunoo.command.ByeCommand;
 import sunoo.command.Command;
 import sunoo.command.DeleteCommand;
+import sunoo.command.EnhypenCommand;
 import sunoo.command.FindCommand;
 import sunoo.command.IncorrectCommand;
 import sunoo.command.ListCommand;
@@ -39,6 +40,7 @@ public class Parser {
         2. Remember to include the " /to " keyword between your event start time and event end time!
         3. Your description, event start time and event end time cannot be empty!""";
     private static final String ERROR_DATETIME_FORMAT = "ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!";
+    private static final String ERROR_ENHYPEN_EMPTY = "Give me an ENHYPEN title, ENGENE!";
 
     /**
      * Parses the user's input into a command to be executed.
@@ -60,6 +62,7 @@ public class Parser {
         case "todo", "t" -> parseToDoInput(parts);
         case "deadline", "d" -> parseDeadlineInput(parts);
         case "event", "e" -> parseEventInput(parts);
+        case "enhypen" -> parseEnhypenInput(parts);
         default -> new IncorrectCommand("Sorry! Ddeonu doesn't know what you mean ToT");
         };
     }
@@ -111,6 +114,11 @@ public class Parser {
     private static AddCommand parseToDoInput(String[] parts) {
         String todoDescription = getCommandStringArguments(parts, ERROR_TODO_EMPTY);
         return new AddCommand(new ToDo(false, todoDescription));
+    }
+
+    private static EnhypenCommand parseEnhypenInput(String[] parts) {
+        String titleTrack = getCommandStringArguments(parts, ERROR_ENHYPEN_EMPTY);
+        return new EnhypenCommand(titleTrack);
     }
 
     /**

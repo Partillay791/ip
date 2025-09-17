@@ -19,6 +19,15 @@ public class Ui {
                 |____/ \\___/|_| \\_||____/|____/
                 """;
 
+    private static final String GREETING_MESSAGE = String.format("""
+            Hello, this is Sunoo from ENHYPEN!
+            %s
+            I may call you ENGENE!
+            I'm born on June 24, 2003!
+            Enter commands so that I can help you manage your tasks!
+            Enter "ENHYPEN" followed by one of our title tracks for a surprise!
+            """, LOGO);
+
     /**
      * Wraps a message with horizontal lines above and below.
      *
@@ -42,9 +51,7 @@ public class Ui {
     }
 
     public static String getGreetingMessage() {
-        String response = joinLines(
-                "Hello, this is Sunoo from ENHYPEN!\n" + LOGO,
-                "I'm glad to help you, let's talk!");
+        String response = joinLines(GREETING_MESSAGE);
         return wrapWithHorizontalLines(response);
     }
 }
