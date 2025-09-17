@@ -13,9 +13,9 @@ public class Ui {
     /** ASCII art logo displayed when the program starts */
     private static final String LOGO = """
                  ____  _   _ _   _  ____  ____
-                / ___|| | | | \\ | ||  _ \\|  _ \\
-                \\___ \\| | | |  \\| || | | | | | |
-                 ___) | |_| | |\\  || |_| | |_| |
+                / ___||   |  |  |  \\ |  ||   _   \\|  _   \\
+                \\___ \\|   |  |  |   \\|  ||  |  |   |  |  |   |
+                 ___) |   |_|  |  |\\   ||  |_|   |  |_|   |
                 |____/ \\___/|_| \\_||____/|____/""";
 
     private static final String GREETING_MESSAGE = String.format("""
