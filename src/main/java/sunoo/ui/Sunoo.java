@@ -27,6 +27,7 @@ public class Sunoo {
             isExitNext = c.shouldExit();
         } catch (SunooException e) {
             response = new IncorrectCommand(e.getMessage()).execute(tasks);
+            commandType = "IncorrectCommand";
         } finally {
             Storage.updateTaskListInTxt(tasks);
         }

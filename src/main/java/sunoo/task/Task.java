@@ -78,4 +78,12 @@ public class Task {
     public boolean descriptionContainsKeyword(String keyword) {
         return description.contains(keyword);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task t) {
+            return description.equals(t.description);
+        }
+        return false;
+    }
 }

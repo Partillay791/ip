@@ -39,7 +39,9 @@ public class Parser {
         1. Remember to include the " /from " keyword between your event description and start time!
         2. Remember to include the " /to " keyword between your event start time and event end time!
         3. Your description, event start time and event end time cannot be empty!""";
-    private static final String ERROR_DATETIME_FORMAT = "ENGENE, I need a date time format of \"yyyy-MM-dd HH:mm\"!";
+    private static final String ERROR_DATETIME_FORMAT = """
+            ENGENE, I need a date time format of "yyyy-MM-dd HH:mm"!
+            For example: 2025-09-25 18:00""";
     private static final String ERROR_ENHYPEN_EMPTY = "Give me an ENHYPEN title, ENGENE!";
 
     /**
@@ -144,6 +146,9 @@ public class Parser {
         String[] split = splitByKeyword(arg, "/by", ERROR_DEADLINE_FORMAT);
         String description = split[0];
         LocalDateTime deadline = parseLocalDateTime(split[1]);
+        if (deadline.isBefore(LocalDateTime.now())) {
+            throw new SunooException("ENGENE, this deadline has passed!");
+        }
         return new AddCommand(new Deadline(false, description, deadline));
     }
 
@@ -155,6 +160,12 @@ public class Parser {
 
         LocalDateTime start = parseLocalDateTime(toSplit[0]);
         LocalDateTime end = parseLocalDateTime(toSplit[1]);
+
+        if (end.isBefore(LocalDateTime.now())) {
+            throw new SunooException("ENGENE, this event has ended!");
+        } else if (!end.isAfter(start)) {
+            throw new SunooException("ENGENE, an event needs to start before it ends!");
+        }
 
         return new AddCommand(new Event(false, description, start, end));
     }

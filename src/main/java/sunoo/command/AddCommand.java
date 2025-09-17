@@ -1,5 +1,6 @@
 package sunoo.command;
 
+import sunoo.exception.SunooException;
 import sunoo.task.Task;
 import sunoo.task.TaskList;
 import sunoo.ui.Ui;
@@ -27,6 +28,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        if (tasks.contains(taskToAdd)) {
+            throw new SunooException("ENGENE, the same task already exists!");
+        }
         int numTasksBefore = tasks.getNumTasks();
         String response = Ui.joinLines(
                 "Got it! Ddeonu has added this task for you:",
