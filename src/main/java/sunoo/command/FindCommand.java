@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @param keyword Keyword to search for.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
     }
 
     /**
