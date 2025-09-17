@@ -52,4 +52,12 @@ public class Event extends Task {
     public String getTxtRepresentation() {
         return "E" + super.getTxtRepresentation() + " | " + from + " | " + to;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event e) {
+            return description.equals(e.description) && from.equals(e.from) && to.equals(e.to);
+        }
+        return false;
+    }
 }
