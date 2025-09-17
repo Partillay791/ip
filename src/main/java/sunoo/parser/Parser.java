@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import sunoo.command.AddCommand;
+import sunoo.command.AliasCommand;
 import sunoo.command.ByeCommand;
 import sunoo.command.Command;
 import sunoo.command.DeleteCommand;
 import sunoo.command.EnhypenCommand;
 import sunoo.command.FindCommand;
+import sunoo.command.HelpCommand;
 import sunoo.command.IncorrectCommand;
 import sunoo.command.ListCommand;
 import sunoo.command.MarkCommand;
@@ -57,6 +59,8 @@ public class Parser {
         return switch (command) {
         case "bye", "end", "exit", "stop", "close" -> new ByeCommand();
         case "list", "l", "ls", "show", "display" -> new ListCommand();
+        case "help" -> new HelpCommand();
+        case "alias" -> new AliasCommand();
         case "find", "f", "fd", "search", "lookup" -> parseFindInput(parts);
         case "mark", "m" -> parseIndexedInput(parts, "mark");
         case "unmark", "um" -> parseIndexedInput(parts, "unmark");
