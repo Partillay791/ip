@@ -19,8 +19,9 @@ public class HelpCommand extends Command {
            (e.g., deadline Submit report /by 2025-09-20 23:59)
         7. Add an event task: event TASK_DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm
            (e.g., event Team meeting /from 2025-09-21 14:00 /to 2025-09-21 16:00)
-        8. Exit the program: bye
-        9. For a surprise: enhypen TITLE_TRACK""";
+        8. Find tasks containing a keyword: find KEYWORD
+        9. Exit the program: bye
+        10. For a surprise: enhypen TITLE_TRACK""";
 
     @Override
     public String execute(TaskList tasks) {

@@ -17,6 +17,7 @@ public class AliasCommand extends Command {
             todo -> t
             deadline -> d
             event -> e
+            find -> f, fd, search, lookup
             bye -> end, exit, stop, close""";
 
     @Override
