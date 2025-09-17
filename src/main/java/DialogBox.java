@@ -47,27 +47,15 @@ public class DialogBox extends HBox {
     }
 
     private void changeDialogStyle(String commandType) {
-        switch(commandType) {
-        case "IncorrectCommand":
-            dialog.getStyleClass().add("incorrect-label");
-            break;
-        case "AddCommand":
-            dialog.getStyleClass().add("add-label");
-            break;
-        case "DeleteCommand":
-            dialog.getStyleClass().add("delete-label");
-            break;
-        case "Welcome":
-            dialog.getStyleClass().add("welcome-label");
-            break;
-        case "EnhypenCommand":
-            dialog.getStyleClass().add("enhypen-label");
-            break;
-        case "ByeCommand":
-            dialog.getStyleClass().add("bye-label");
-            break;
-        default:
-            // Do nothing
+        switch (commandType) {
+        case "IncorrectCommand" -> dialog.getStyleClass().add("incorrect-label");
+        case "AddCommand" -> dialog.getStyleClass().add("add-label");
+        case "DeleteCommand" -> dialog.getStyleClass().add("delete-label");
+        case "Welcome", "FindCommand", "ListCommand" -> dialog.getStyleClass().add("welcome-label");
+        case "EnhypenCommand" -> dialog.getStyleClass().add("enhypen-label");
+        case "ByeCommand" -> dialog.getStyleClass().add("bye-label");
+        case "MarkCommand", "UnmarkCommand" -> dialog.getStyleClass().add("mark-label");
+        default -> { /* Do nothing */ }
         }
     }
 
