@@ -1,5 +1,4 @@
 # Suggested increment 1 (16-09-2025)
-___
 ## AI tool used: ChatGPT
 ### Helped in making a command alias map under: `Parser` class
 ChatGPT suggests that instead of hardcoding command aliases into the switch statement, keep a `static Map<String, String>` of all accepted aliases -> canonical command:
@@ -67,7 +66,6 @@ public static Command parse(String userInput) {
 ```
 ChatGPT's suggestion was not taken as code readability does not increase by much. Even though it may be scalable, the chatbot does not need to use high number of aliases.  
 # Suggested increment 2 (16-09-2025)
-___
 ## AI tool used: ChatGPT
 ### Added JavaDoc for a method in `Parser` class
 Suggested code:
