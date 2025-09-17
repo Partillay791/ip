@@ -63,6 +63,9 @@ public class DialogBox extends HBox {
         case "EnhypenCommand":
             dialog.getStyleClass().add("enhypen-label");
             break;
+        case "ByeCommand":
+            dialog.getStyleClass().add("bye-label");
+            break;
         default:
             // Do nothing
         }
