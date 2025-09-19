@@ -40,7 +40,6 @@ public class EnhypenCommand extends Command {
         return Ui.wrapWithHorizontalLines(result);
     }
 
-
     /**
      * {@inheritDoc}
      *

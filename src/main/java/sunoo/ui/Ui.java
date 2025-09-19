@@ -8,7 +8,7 @@ import java.util.List;
 public class Ui {
 
     /** Horizontal line used as a visual separator */
-    private static final String HORIZONTAL_LINE = "_".repeat(120);
+    private static final String HORIZONTAL_LINE = "_".repeat(108);
 
     /** ASCII art logo displayed when the program starts */
     private static final String LOGO = """
