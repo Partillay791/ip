@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = Ui.getGreetingMessage();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, sunooImage, "Welcome")
+                DialogBox.getSunooDialog(greeting, sunooImage, "Welcome")
         );
     }
 
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String commandType = Sunoo.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, sunooImage, commandType)
+                DialogBox.getSunooDialog(response, sunooImage, commandType)
         );
         userInput.clear();
 
